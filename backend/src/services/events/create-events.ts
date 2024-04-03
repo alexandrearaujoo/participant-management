@@ -1,4 +1,5 @@
 import { prisma } from '../../lib/prismaClient'
+import { BadRequest } from '../../routes/_errors/bad-requests'
 import { generateSlug } from '../../utils/generateSlug'
 import { CreateEventData } from '../../validations/createEventSchema'
 
@@ -11,7 +12,7 @@ export async function createEvent(data: CreateEventData) {
     },
   })
 
-  if (eventWithSameSlug) throw new Error('Slug already exists')
+  if (eventWithSameSlug) throw new BadRequest('Slug already exists')
 
   const event = await prisma.event.create({
     data: {

@@ -1,4 +1,5 @@
 import { prisma } from '../../lib/prismaClient'
+import { BadRequest } from '../../routes/_errors/bad-requests'
 import { RegisterForEventsData } from '../../validations/registerForEventSchema'
 
 export async function registerForEvent(
@@ -18,7 +19,7 @@ export async function registerForEvent(
     }),
   ])
 
-  if (!event) throw new Error('Event not found')
+  if (!event) throw new BadRequest('Event not found')
 
   if (
     event?.maximumAttendees &&

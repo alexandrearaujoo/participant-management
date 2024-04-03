@@ -11,11 +11,11 @@ export async function getAttendeeBadgeRoute(app: FastifyInstance) {
     '/attendees/:attendeeId/badge',
     {
       schema: {
+        summary: 'Get an attendee badge',
+        tags: ['attendees'],
         params: getAttendeeBadgeParams,
         response: {
-          200: {
-            badge: getAttendeeBadgeResponse,
-          },
+          200: getAttendeeBadgeResponse,
         },
       },
     },
@@ -24,7 +24,7 @@ export async function getAttendeeBadgeRoute(app: FastifyInstance) {
 
       const baseURL = `${req.protocol}://${req.hostname}`
 
-      const badge = await getAttendeeBadge(attendeeId, baseURL)
+      const { badge } = await getAttendeeBadge(attendeeId, baseURL)
 
       return reply.send({ badge })
     },

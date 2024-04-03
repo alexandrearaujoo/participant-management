@@ -12,6 +12,8 @@ export async function getEventAttendeesRoute(app: FastifyInstance) {
     '/events/:eventId/attendees',
     {
       schema: {
+        summary: 'Get event attendees',
+        tags: ['attendees'],
         params: getEventAttendeesParams,
         querystring: getEventAttendeesQueryParams,
         response: {

@@ -12,6 +12,8 @@ export async function registerForEventRoute(app: FastifyInstance) {
     '/events/:eventId/attendees',
     {
       schema: {
+        summary: 'Register an attendee',
+        tags: ['attendees'],
         body: registerForEventSchema,
         params: registerForEventParams,
         response: {

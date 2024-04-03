@@ -11,6 +11,8 @@ export async function createEventRoute(app: FastifyInstance) {
     '/events',
     {
       schema: {
+        summary: 'Create an event',
+        tags: ['events'],
         body: createEventSchema,
         response: {
           201: createEventResponse,

@@ -11,18 +11,18 @@ export async function getEventRoute(app: FastifyInstance) {
     '/events/:eventId',
     {
       schema: {
+        summary: 'Get an event',
+        tags: ['events'],
         params: getEventParams,
         response: {
-          200: {
-            event: getEventResponse,
-          },
+          200: getEventResponse,
         },
       },
     },
     async (req, reply) => {
       const { eventId } = req.params
 
-      const event = await getEvent(eventId)
+      const { event } = await getEvent(eventId)
 
       return reply.send({ event })
     },

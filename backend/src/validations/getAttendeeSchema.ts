@@ -5,8 +5,10 @@ export const getAttendeeBadgeParams = z.object({
 })
 
 export const getAttendeeBadgeResponse = z.object({
-  name: z.string(),
-  email: z.string().email(),
-  eventTitle: z.string(),
-  checkInURL: z.string().url(),
+  badge: z.object({
+    name: z.string(),
+    email: z.string().email(),
+    eventTitle: z.string(),
+    checkInURL: z.string().url(),
+  }),
 })

@@ -1,4 +1,5 @@
 import { prisma } from '../../lib/prismaClient'
+import { BadRequest } from '../../routes/_errors/bad-requests'
 
 export async function getEvent(eventId: string) {
   const event = await prisma.event.findUnique({
@@ -19,7 +20,7 @@ export async function getEvent(eventId: string) {
     },
   })
 
-  if (!event) throw new Error('Event not found!')
+  if (!event) throw new BadRequest('Event not found!')
 
   return {
     event: {

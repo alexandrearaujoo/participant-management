@@ -1,4 +1,5 @@
 import { prisma } from '../../lib/prismaClient'
+import { BadRequest } from '../../routes/_errors/bad-requests'
 
 export async function getAttendeeBadge(attendeeId: number, baseURL: string) {
   const attendee = await prisma.attendee.findUnique({
@@ -16,7 +17,7 @@ export async function getAttendeeBadge(attendeeId: number, baseURL: string) {
     },
   })
 
-  if (!attendee) throw new Error('Attendee not found')
+  if (!attendee) throw new BadRequest('Attendee not found')
 
   const checkInURL = new URL(`/attendees/${attendeeId}/check-in`, baseURL)
 
