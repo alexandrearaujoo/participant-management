@@ -1,20 +1,18 @@
 import fastify from 'fastify'
-import { createEventSchema } from './validations/createEventSchema'
-import { prisma } from './lib/prismaClient'
+import {
+  serializerCompiler,
+  validatorCompiler,
+} from 'fastify-type-provider-zod'
+import { createEventRoute } from './routes/events/create-event'
 
 const PORT = 3333
 
-const app = fastify()
+export const app = fastify()
 
-app.post('/events', async (req, reply) => {
-  const data = createEventSchema.parse(req.body)
+app.setValidatorCompiler(validatorCompiler)
+app.setSerializerCompiler(serializerCompiler)
 
-  const event = await prisma.event.create({
-    data: { ...data, slug: new Date().toISOString() },
-  })
-
-  return reply.status(201).send({ eventId: event.id })
-})
+app.register(createEventRoute)
 
 app
   .listen({

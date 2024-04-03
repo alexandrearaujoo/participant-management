@@ -5,3 +5,9 @@ export const createEventSchema = z.object({
   details: z.string().nullable(),
   maximumAttendees: z.coerce.number().int().positive().nullable(),
 })
+
+export const createEventResponse = z.object({
+  eventId: z.string().uuid(),
+})
+
+export type CreateEventData = z.infer<typeof createEventSchema>
