@@ -4,6 +4,10 @@ import {
   validatorCompiler,
 } from 'fastify-type-provider-zod'
 import { createEventRoute } from './routes/events/create-event'
+import { registerForEventRoute } from './routes/attendees/register-for-event'
+import { getEventRoute } from './routes/events/get-event'
+import { getAttendeeBadgeRoute } from './routes/attendees/get-attendee-badge'
+import { checkInRoute } from './routes/attendees/check-in'
 
 const PORT = 3333
 
@@ -13,6 +17,10 @@ app.setValidatorCompiler(validatorCompiler)
 app.setSerializerCompiler(serializerCompiler)
 
 app.register(createEventRoute)
+app.register(registerForEventRoute)
+app.register(getEventRoute)
+app.register(getAttendeeBadgeRoute)
+app.register(checkInRoute)
 
 app
   .listen({

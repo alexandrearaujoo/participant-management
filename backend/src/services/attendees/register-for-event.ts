@@ -5,13 +5,40 @@ export async function registerForEvent(
   data: RegisterForEventsData,
   eventId: string,
 ) {
-  const event = await prisma.event.findUnique({
+  const [event, amountOfAttendeeForEvent] = await Promise.all([
+    prisma.event.findUnique({
+      where: {
+        id: eventId,
+      },
+    }),
+    prisma.attendee.count({
+      where: {
+        eventId,
+      },
+    }),
+  ])
+
+  if (!event) throw new Error('Event not found')
+
+  if (
+    event?.maximumAttendees &&
+    amountOfAttendeeForEvent >= event.maximumAttendees
+  )
+    throw new Error(
+      'The maximum number of attendees for this event has been reached',
+    )
+
+  const attendeeFromEmail = await prisma.attendee.findUnique({
     where: {
-      id: eventId,
+      eventId_email: {
+        email: data.email,
+        eventId: event.id,
+      },
     },
   })
 
-  if (!event) throw new Error('Event not found')
+  if (attendeeFromEmail)
+    throw new Error('This e-mail is already registered for this event!')
 
   const attendee = await prisma.attendee.create({
     data: {
