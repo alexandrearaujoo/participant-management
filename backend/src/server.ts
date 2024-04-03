@@ -8,6 +8,7 @@ import { registerForEventRoute } from './routes/attendees/register-for-event'
 import { getEventRoute } from './routes/events/get-event'
 import { getAttendeeBadgeRoute } from './routes/attendees/get-attendee-badge'
 import { checkInRoute } from './routes/attendees/check-in'
+import { getEventAttendeesRoute } from './routes/attendees/get-event-attendees'
 
 const PORT = 3333
 
@@ -21,6 +22,7 @@ app.register(registerForEventRoute)
 app.register(getEventRoute)
 app.register(getAttendeeBadgeRoute)
 app.register(checkInRoute)
+app.register(getEventAttendeesRoute)
 
 app
   .listen({

@@ -5,7 +5,7 @@ export const getEventParams = z.object({
 })
 
 export const getEventResponse = z.object({
-  id: z.string().ulid(),
+  id: z.string().uuid(),
   title: z.string(),
   slug: z.string(),
   details: z.string().nullable(),
